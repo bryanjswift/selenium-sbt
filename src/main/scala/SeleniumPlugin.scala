@@ -4,6 +4,7 @@ import org.openqa.selenium.server.{RemoteControlConfiguration,SeleniumServer}
 import sbt._
 
 trait SeleniumPlugin {
+	self: Project =>
 	lazy val config = new RemoteControlConfiguration()
 	lazy val server = new SeleniumServer(config)
 
