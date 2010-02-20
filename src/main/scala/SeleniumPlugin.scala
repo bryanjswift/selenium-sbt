@@ -7,7 +7,7 @@ trait SeleniumPlugin {
 	lazy val config = new RemoteControlConfiguration()
 	lazy val server = new SeleniumServer(config)
 
-	def startSeleniumTask = {
+	lazy val seleniumStart = task {
 		try {
 			server.start
 			None
@@ -16,7 +16,6 @@ trait SeleniumPlugin {
 				Some("Could not start Selenium Server because of: " + e.getMessage)
 		}
 	}
-	lazy val startSelenium = startSeleniumTask
 
 	def stopSeleniumTask = {
 		try {
@@ -27,6 +26,14 @@ trait SeleniumPlugin {
 				Some("Could not stop Selenium Server because of: " + e.getMessage)
 		}
 	}
-	lazy val stopSelenium = stopSeleniumTask
+	lazy val seleniumStop = task {
+		try {
+			server.stop
+			None
+		} catch {
+			case e =>
+				Some("Could not stop Selenium Server because of: " + e.getMessage)
+		}
+	}
 }
 
